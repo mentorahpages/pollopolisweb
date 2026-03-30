@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pollopolis – ¡Aquí siempre hay más!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CC1D1D;
+    --blue: #1A3A9C;
+    --yellow: #F5C800;
+    --light-blue: #B8DFF0;
+    --white: #FFFFFF;
+    --dark: #111111;
+    --checker: repeating-conic-gradient(#CC1D1D 0% 25%, #fff 0% 50%) 0 0 / 20px 20px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light-blue);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 999;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px;
+    height: 64px;
+    box-shadow: 0 4px 0 var(--yellow);
+  }
+  .nav-logo {
+    font-family: 'Bangers', cursive;
+    font-size: 28px; color: var(--yellow);
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 8px; }
+  .nav-links a {
+    font-family: 'Bangers', cursive;
+    font-size: 17px; letter-spacing: 1px;
+    color: var(--white);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: background .2s, color .2s;
+  }
+  .nav-links a:hover { background: var(--yellow); color: var(--blue); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--light-blue);
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center;
+    padding: 60px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; bottom: -30px; left: 0; right: 0; height: 80px;
+    background: var(--blue);
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+  .hero-badge {
+    background: var(--red);
+    color: var(--white);
+    font-family: 'Bangers', cursive;
+    font-size: 14px; letter-spacing: 3px;
+    padding: 6px 18px; border-radius: 999px;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+  .hero h1 {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(52px, 10vw, 100px);
+    color: var(--blue);
+    line-height: .95;
+    letter-spacing: 3px;
+    text-shadow: 4px 4px 0 var(--yellow), 6px 6px 0 var(--red);
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 18px; color: var(--blue);
+    font-weight: 600; max-width: 500px;
+    margin-bottom: 28px;
+  }
+  .hero-cta {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+  }
+  .btn {
+    font-family: 'Bangers', cursive;
+    font-size: 20px; letter-spacing: 2px;
+    padding: 12px 30px; border-radius: 10px;
+    border: none; cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+  .btn-primary { background: var(--red); color: var(--white); }
+  .btn-secondary { background: var(--yellow); color: var(--blue); }
+
+  /* ── PROMO BANNER ── */
+  .promo-banner {
+    background: var(--yellow);
+    padding: 4px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 4px solid var(--red);
+    border-bottom: 4px solid var(--red);
+  }
+  .promo-track {
+    display: inline-flex; gap: 60px;
+    animation: ticker 18s linear infinite;
+  }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .promo-track span {
+    font-family: 'Bangers', cursive;
+    font-size: 20px; letter-spacing: 2px;
+    color: var(--blue);
+  }
+  .promo-track span.sep { color: var(--red); }
+
+  /* ── SECTIONS SHARED ── */
+  section { padding: 60px 24px; max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Bangers', cursive;
+    font-size: clamp(36px, 6vw, 60px);
+    color: var(--blue);
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .section-title span { color: var(--red); }
+  .section-sub {
+    text-align: center; color: #555;
+    font-size: 15px; margin-bottom: 36px;
+  }
+
+  /* ── PROMOS ── */
+  #promos { background: transparent; }
+  .promos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .promo-card {
+    background: var(--blue);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--yellow);
+    transition: transform .2s;
+    position: relative;
+  }
+  .promo-card:hover { transform: translateY(-6px); }
+  .promo-card-header {
+    background: var(--checker);
+    height: 12px;
+  }
+  .promo-card-body { padding: 24px; }
+  .promo-tag {
+    background: var(--yellow);
+    color: var(--blue);
+    font-family: 'Bangers', cursive;
+    font-size: 13px; letter-spacing: 2px;
+    padding: 3px 12px; border-radius: 999px;
+    display: inline-block; margin-bottom: 10px;
+  }
+  .promo-card h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 28px; color: var(--white);
+    letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .promo-card p { color: #cde; font-size: 14px; margin-bottom: 14px; }
+  .promo-price {
+    font-family: 'Bangers', cursive;
+    font-size: 42px; color: var(--yellow);
+    letter-spacing: 2px;
+  }
+  .promo-price small { font-size: 18px; }
+  .promo-validity {
+    font-size: 12px; color: #aac; margin-top: 8px;
+  }
+
+  /* ── MENU ── */
+  #menu { background: transparent; }
+  .menu-tabs {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 28px;
+  }
+  .tab-btn {
+    font-family: 'Bangers', cursive;
+    font-size: 17px; letter-spacing: 1px;
+    padding: 8px 22px; border-radius: 999px;
+    border: 3px solid var(--blue);
+    background: transparent; color: var(--blue);
+    cursor: pointer; transition: all .2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: var(--blue); color: var(--white);
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 20px;
+  }
+  .menu-item {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 4px 4px 0 var(--blue);
+    transition: transform .2s;
+    border: 2px solid var(--blue);
+  }
+  .menu-item:hover { transform: translateY(-4px); }
+  .menu-item-icon { font-size: 40px; margin-bottom: 10px; }
+  .menu-item h4 {
+    font-family: 'Bangers', cursive;
+    font-size: 20px; color: var(--blue);
+    letter-spacing: 1px; margin-bottom: 4px;
+  }
+  .menu-item p { font-size: 13px; color: #666; margin-bottom: 10px; }
+  .menu-item .price {
+    font-family: 'Bangers', cursive;
+    font-size: 26px; color: var(--red);
+  }
+  .menu-section { display: none; }
+  .menu-section.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+
+  /* ── LOCATIONS ── */
+  #ubicaciones { background: transparent; }
+  .locations-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media(max-width:700px){.locations-layout{grid-template-columns:1fr;}}
+  .locations-list { display: flex; flex-direction: column; gap: 10px; max-height: 580px; overflow-y: auto; padding-right: 4px; }
+  .locations-list::-webkit-scrollbar { width: 6px; }
+  .locations-list::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 99px; }
+  .loc-card {
+    background: var(--white);
+    border: 2px solid var(--blue);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: flex-start; gap: 12px;
+  }
+  .loc-card:hover, .loc-card.active {
+    background: var(--blue); color: var(--white);
+    box-shadow: 4px 4px 0 var(--yellow);
+  }
+  .loc-card:hover .loc-name, .loc-card.active .loc-name { color: var(--yellow); }
+  .loc-card:hover .loc-addr, .loc-card.active .loc-addr { color: #cde; }
+  .loc-card:hover .loc-hours, .loc-card.active .loc-hours { color: #aac; }
+  .loc-num {
+    font-family: 'Bangers', cursive;
+    font-size: 22px; color: var(--red);
+    min-width: 28px; line-height: 1;
+    transition: color .2s;
+  }
+  .loc-card:hover .loc-num, .loc-card.active .loc-num { color: var(--yellow); }
+  .loc-info { flex: 1; }
+  .loc-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .loc-addr { font-size: 12px; color: #666; margin-bottom: 2px; }
+  .loc-hours { font-size: 11px; color: #999; }
+  .loc-waze {
+    font-size: 11px; color: var(--blue); font-weight: 600;
+    text-decoration: none; padding: 3px 8px;
+    border: 1.5px solid var(--blue); border-radius: 6px;
+    white-space: nowrap; transition: all .2s;
+    align-self: center;
+  }
+  .loc-card:hover .loc-waze, .loc-card.active .loc-waze {
+    border-color: var(--yellow); color: var(--yellow);
+  }
+  .map-wrapper {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 4px solid var(--blue);
+    box-shadow: 8px 8px 0 var(--yellow);
+    position: sticky; top: 80px;
+  }
+  .map-wrapper iframe { width: 100%; height: 520px; border: none; display: block; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--blue);
+    color: var(--white);
+    text-align: center;
+    padding: 40px 24px 28px;
+    border-top: 6px solid var(--yellow);
+  }
+  footer .f-logo {
+    font-family: 'Bangers', cursive;
+    font-size: 40px; color: var(--yellow);
+    letter-spacing: 3px; margin-bottom: 8px;
+  }
+  footer p { font-size: 14px; color: #aac; margin-bottom: 16px; }
+  .social-links { display: flex; gap: 14px; justify-content: center; margin-bottom: 20px; }
+  .social-links a {
+    background: var(--yellow); color: var(--blue);
+    font-family: 'Bangers', cursive; font-size: 15px; letter-spacing: 1px;
+    padding: 6px 18px; border-radius: 999px;
+    text-decoration: none; transition: transform .2s;
+  }
+  .social-links a:hover { transform: scale(1.08); }
+  footer small { color: #778; font-size: 12px; }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    background: #25D366; color: var(--white);
+    font-family: 'Bangers', cursive; font-size: 16px; letter-spacing: 1px;
+    padding: 12px 20px; border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,.3);
+    display: flex; align-items: center; gap: 8px;
+    transition: transform .2s;
+  }
+  .wa-float:hover { transform: scale(1.06); }
+
+  /* mobile nav */
+  @media(max-width:600px){
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">🍗 POLLOPOLIS</a>
+  <div class="nav-links">
+    <a href="#promos">Promos</a>
+    <a href="#menu">Menú</a>
+    <a href="#ubicaciones">Sucursales</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge">🏆 LA CIUDAD DEL POLLO · TEGUCIGALPA</span>
+  </span>
+  </span>
+  <h1>AQUÍ<br>SIEMPRE<br>HAY MÁS</h1>
+  <p>Más sabor, más tamaño, más satisfacción.<br>El pollo que une y resuelve.</p>
+  <div class="hero-cta">
+    <a href="#menu" class="btn btn-primary">Ver Menú</a>
+    <a href="#ubicaciones" class="btn btn-secondary">14 Sucursales</a>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="promo-banner">
+  <div class="promo-track">
+    <span>🍗 PROMO VERANO FAMILIAR · L.349</span><span class="sep">★</span>
+    <span>🔥 8 PIEZAS + 1 PAPA FAMILIAR</span><span class="sep">★</span>
+    <span>⚡ COMBO INDIVIDUAL DESDE L.115</span><span class="sep">★</span>
+    <span>🛵 ¡PASA POR POLLOPOLIS!</span><span class="sep">★</span>
+    <span>🍗 PROMO VERANO FAMILIAR · L.349</span><span class="sep">★</span>
+    <span>🔥 8 PIEZAS + 1 PAPA FAMILIAR</span><span class="sep">★</span>
+    <span>⚡ COMBO INDIVIDUAL DESDE L.115</span><span class="sep">★</span>
+    <span>🛵 ¡PASA POR POLLOPOLIS!</span><span class="sep">★</span>
+  </div>
+</div>
+
+<!-- PROMOS -->
+<section id="promos" style="max-width:1100px;margin:0 auto;padding:60px 24px;">
+  <div class="section-title">PROMOS <span>ACTIVAS</span></div>
+  <p class="section-sub">Válidas en todos los restaurantes Pollopolis Tegucigalpa</p>
+  <div class="promos-grid">
+
+    <div class="promo-card">
+      <div class="promo-card-header"></div>
+      <div class="promo-card-body">
+        <span class="promo-tag">🔥 SÚPER PROMO</span>
+        <h3>COMBO VERANO FAMILIAR</h3>
+        <p>8 piezas de pollo frito o asado + 1 papa familiar. ¡Para toda la familia!</p>
+        <div class="promo-price"><small>L.</small>349</div>
+        <div class="promo-validity">📅 Del 30 de marzo al 05 de abril · Solo Tegucigalpa</div>
+      </div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-card-header"></div>
+      <div class="promo-card-body">
+        <span class="promo-tag">⚡ CLÁSICO</span>
+        <h3>COMBO INDIVIDUAL</h3>
+        <p>2 piezas de pollo Pierna/Ala  + 1 complemento + 1 refresco. Rápido, rico y te llena.</p>
+        <div class="promo-price"><small>L.</small>115</div>
+        <div class="promo-validity">📅 Del 08 al 31 de marzo · Solo Tegucigalpa</div>
+      </div>
+    </div>
+
+    <div class="promo-card">
+      <div class="promo-card-header"></div>
+      <div class="promo-card-body">
+        <span class="promo-tag">🏖️ SEMANA SANTA</span>
+        <h3>VACACIONES DE VERDAD</h3>
+        <p>Desayuno, almuerzo y cena resueltos. Pollo asado, frito, tacos y más. ¡Sin cocinar!</p>
+        <div class="promo-price"><small>desde L.</small>115</div>
+        <div class="promo-validity">📅 Semana Santa 2026 · Todas las sucursales</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" style="max-width:1100px;margin:0 auto;padding:60px 24px;">
+  <div class="section-title">NUESTRO <span>MENÚ</span></div>
+  <p class="section-sub">Precios Sujetos a Cambios — consúlta en tu sucursal más cercana</p>
+
+  <div class="menu-tabs">
+    <button class="tab-btn active" onclick="showTab('combos',this)">🍗 Combos</button>
+    <button class="tab-btn" onclick="showTab('piezas',this)">🍖 Piezas</button>
+    <button class="tab-btn" onclick="showTab('extras',this)">🍟 Extras</button>
+    <button class="tab-btn" onclick="showTab('bebidas',this)">🥤 Bebidas</button>
+    <button class="tab-btn" onclick="showTab('desayunos',this)">🍳 Desayunos</button>
+  </div>
+
+  <div id="combos" class="menu-section active">
+    <div class="menu-item"><div class="menu-item-icon">🍗</div><h4>COMBO FAMILIAR</h4><p>8 piezas pollo frito o asado + 1 papa familiar</p><div class="price">L.379</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🍖</div><h4>COMBO INDIVIDUAL</h4><p>2 piezas + 1 complemento + 1 refresco</p><div class="price">L.115</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🐔</div><h4>COMBO PAREJA</h4><p>4 piezas + 2 complementos + 1 Refresco de 1.5 Litros</p><div class="price">L.235</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🍔</div><h4>COMBO HAMBURGUESA</h4><p>Hamburguesa de pollo + papa + refresco</p><div class="price">L.120</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🌮</div><h4>COMBO TACOS</h4><p>3 tacos de pollo + refresco</p><div class="price">L.145</div></div>
+  </div>
+
+  <div id="piezas" class="menu-section">
+    <div class="menu-item"><div class="menu-item-icon">🍗</div><h4>1 PIEZA POLLO FRITO + 1 Complemento </h4><p>Piezas grandes, crujientes, receta propia</p><div class="price">Desde L.65</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🔥</div><h4>1 PIEZA POLLO ASADO + 1 Complemento </h4><p>Asado a la parrilla con sazón especial</p><div class="price">L.65</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🍖</div><h4>6 PIEZAS FRITO + 3 Complementos + 1 Refresco 1.5 litros </h4><p>Para compartir o resolver la comida</p><div class="price">L.332</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🐓</div><h4>POLLO COMPLETO ASADO</h4><p>Pollo entero asado con complementos</p><div class="price">L.240</div></div>
+  </div>
+
+  <div id="extras" class="menu-section">
+    <div class="menu-item"><div class="menu-item-icon">🍟</div><h4>PAPA FAMILIAR</h4><p>Porción grande para toda la mesa</p><div class="price">L.130</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🍟</div><h4>PAPA PERSONAL </h4><p>Porción personal crujiente</p><div class="price">L.35</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🥗</div><h4>ENSALADA PERSONAL</h4><p>Ensalada fresca del día</p><div class="price">L.35</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🍞</div><h4>TAJADAS PERSONAL </h4><p>Tajadas de guineo verde </p><div class="price">L.55</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🧄</div><h4>ARROZ CHINO PERSONAL</h4><p>Arroz con Pollo Chino</p><div class="price">L.35</div></div>
+  </div>
+
+  <div id="bebidas" class="menu-section">
+    <div class="menu-item"><div class="menu-item-icon">🥤</div><h4>REFRESCO PERSONAL LATA</h4><p>Pepsi, 7Up, Mirinda — vaso personal</p><div class="price">L.25</div></div>
+    <div class="menu-item"><div class="menu-item-icon">🥤</div><h4>REFRESCO GRANDE 1.5 LITROS </h4><p>Tamaño familiar para compartir</p><div class="price">L.46</div></div>
+  </div>
+</section>
+
+<!-- UBICACIONES -->
+<section id="ubicaciones" style="max-width:1100px;margin:0 auto;padding:60px 24px;">
+  <div class="section-title">14 <span>SUCURSALES</span></div>
+  <p class="section-sub">Encuentra tu Pollopolis más cercano en Tegucigalpa</p>
+
+  <div class="locations-layout">
+    <div class="locations-list" id="locList">
+      <!-- cards generadas por JS -->
+    </div>
+    <div class="map-wrapper">
+      <iframe id="mapFrame"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d123987.98!2d-87.2063!3d14.0818!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fb55b33d70a71%3A0x7e1ef1d3d16ef9f8!2sTegucigalpa%2C%20Honduras!5e0!3m2!1ses!2shn!4v1711234567890"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">🍗 POLLOPOLIS</div>
+  <p>¡Aquí siempre hay más! · La ciudad del pollo · Tegucigalpa, Honduras</p>
+  <div class="social-links">
+    <a href="https://www.facebook.com/profile.php?id=61579557808183" target="_blank">📘 Facebook</a>
+    <a href="https://www.instagram.com/pollopolistgu" target="_blank">📸 Instagram</a>
+    <a href="https://www.tiktok.com/@pollopolistgu" target="_blank">🎵 TikTok</a>
+  </div>
+  <small>© 2026 Pollopolis · Todos los precios pueden variar, aplican restricciones, confirmar en sucursal</small>
+</footer>
+
+</a>
+
+<script>
+  // ── MENU TABS ──
+  function showTab(id, btn) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ── LOCATIONS DATA ──
+  const locations = [
+    { name: "Miraflores",       addr: "Col. Miraflores, frente al parque",          hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "Tizatillo",       addr: "Tizatillo, Salida al Sur          ",          hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "Kennedy",          addr: "Col. Kennedy, Blvd. Las Fuerzas Armadas",    hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "Loarque",          addr: "Carretera Loarque, salida al sur",            hours: "Lun–Dom 6:30am–10:00pm" },
+    { name: "El Hogar",         addr: "Col. El Hogar, Av. Principal",               hours: "Lun–Dom 7:00am–9:30pm"  },
+    { name: "Comayagüela",      addr: "Centro de Comayagüela, 6ta Av.",             hours: "Lun–Dom 6:30am–10:00pm" },
+    { name: "Las Américas",     addr: "Col. Las Américas, frente a la farmacia",    hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "Villanueva",       addr: "Col. Villanueva, calle principal",           hours: "Lun–Dom 7:00am–9:00pm"  },
+    { name: "Suyapa",           addr: "Blvd. Suyapa, frente a la Universidad",     hours: "Lun–Dom 7:00am–11:00pm" },
+    { name: "Guadalupe",        addr: "Col. Guadalupe, Av. Los Próceres",           hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "Las Palmas",       addr: "Col. Las Palmas, frente al mercado",        hours: "Lun–Dom 6:30am–9:30pm"  },
+    { name: "Santa Fe",         addr: "Col. Santa Fe, calle principal",            hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "El Pedregal",      addr: "Residencial El Pedregal, entrada principal", hours: "Lun–Dom 7:00am–10:00pm" },
+    { name: "La Granja",        addr: "Col. La Granja, Blvd. Los Laureles",        hours: "Lun–Dom 7:00am–9:30pm"  },
+    { name: "Centro Histórico", addr: "Av. Cervantes, frente al Parque Central",   hours: "Lun–Dom 6:30am–10:00pm" },
+  ];
+
+  const mapSrcs = [
+    "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15500!2d-87.216!3d14.098!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fb55b33d70a71%3A0x7e1ef1d3d16ef9f8!2sMiraflores%2C%20Tegucigalpa!5e0!3m2!1ses!2shn!4v1",
+    "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15500!2d-87.220!3d14.070!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f6fb55b33d70a71%3A0x7e1ef1d3d16ef9f8!2sKennedy%2C%20Tegucigalpa!5e0!3m2!1ses!2shn!4v1",
+  ];
+
+  const list = document.getElementById('locList');
+  const mapFrame = document.getElementById('mapFrame');
+
+  locations.forEach((loc, i) => {
+    const card = document.createElement('div');
+    card.className = 'loc-card' + (i === 0 ? ' active' : '');
+    card.innerHTML = `
+      <div class="loc-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="loc-info">
+        <div class="loc-name">${loc.name}</div>
+        <div class="loc-addr">📍 ${loc.addr}</div>
+        <div class="loc-hours">⏰ ${loc.hours}</div>
+      </div>
+      <a class="loc-waze" href="https://waze.com/ul?q=Pollopolis+${encodeURIComponent(loc.name)}+Tegucigalpa" target="_blank">Waze 🗺️</a>
+    `;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.loc-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      // Update map to search for this location
+      const query = encodeURIComponent('Pollopolis ' + loc.name + ' Tegucigalpa Honduras');
+      mapFrame.src = `https://maps.google.com/maps?q=${query}&output=embed&hl=es`;
+    });
+    list.appendChild(card);
+  });
+</script>
+</body>
+</html>
